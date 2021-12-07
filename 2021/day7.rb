@@ -10,16 +10,11 @@ class Day7 < Puzzle
   end
 
   def answer1
-    min_fuel = data.sum
-    (data.min..data.max).each do |i|
-      fuel = data.map { |p| (i - p).abs }
-      fuels = fuel.sum
-      if fuels < min_fuel
-        min_fuel = fuels
-      end
+    fuels = (data.min..data.max).map do |i|
+      data.map { |p| (i - p).abs }.sum
     end
 
-    min_fuel
+    fuels.min
   end
 
   # original fuel calculation
@@ -33,16 +28,11 @@ class Day7 < Puzzle
   end
 
   def answer2
-    min_fuel = nil
-    (data.min..data.max).each do |i|
-      fuel = data.map { |p| fuel2((i - p).abs) }
-      fuels = fuel.sum
-      if min_fuel.nil? || fuels < min_fuel
-        min_fuel = fuels
-      end
+    fuels = (data.min..data.max).map do |i|
+      data.map { |p| fuel2((i - p).abs) }.sum
     end
 
-    min_fuel
+    fuels.min
   end
 
 if __FILE__==$0
