@@ -22,7 +22,7 @@ class Puzzle
   def solve1
     if defined? answer1
       @data = nil
-      puts "  ANSWER1: #{answer1}"
+      puts "  ANSWER1 (#{input_type}): #{answer1}"
     else
       puts " ANSWER1 UNDEFINED"
     end
@@ -31,7 +31,7 @@ class Puzzle
   def solve2
     if defined? answer2
       @data = nil
-      puts "  ANSWER2: #{answer2}"
+      puts "  ANSWER2 (#{input_type}): #{answer2}"
     else
       puts " ANSWER2 UNDEFINED"
     end
