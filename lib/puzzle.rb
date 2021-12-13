@@ -1,3 +1,6 @@
+require_relative '../lib/grid'
+require_relative '../lib/node'
+
 class Puzzle
   attr_accessor :data
   attr_accessor :input_type
@@ -36,4 +39,15 @@ class Puzzle
       puts " ANSWER2 UNDEFINED"
     end
   end
+
+  def grid
+    @grid
+  end
+
+  def build_grid(node_class)
+    @grid = Hash.new do |hash, key|
+      hash[key] = node_class.new(key, @grid) 
+    end
+  end 
+ 
 end
