@@ -4,19 +4,25 @@ class Node
   attr_accessor :value
 
   def initialize(key, grid)
-    self.key = key
+    @key = key
     self.grid = grid
   end
 
   def x
-    @x ||= key[0]
+    key[0]
   end
 
   def y
-    @y ||= key[1]
+    key[1]
   end
 
   def at(x1, y1)
     grid[[x + x1, y + y1]]
+  end
+
+  def new_key(new_key)
+    grid.delete(key)
+    self.key = new_key
+    grid[key] = self
   end
 end

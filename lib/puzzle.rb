@@ -15,7 +15,11 @@ class Puzzle
   end
 
   def lines
-    @lines ||= File.open(input_filename).readlines
+    @lines ||= File.open(input_filename).readlines.map(&:chomp)
+  end
+
+  def integers(string)
+    string.split(',').map(&:to_i)
   end
 
   def data
@@ -25,7 +29,7 @@ class Puzzle
   def solve1
     if defined? answer1
       @data = nil
-      puts "  ANSWER1 (#{input_type}): #{answer1}"
+      put_answer "  ANSWER1 (#{input_type}):", answer1
     else
       puts " ANSWER1 UNDEFINED"
     end
@@ -34,7 +38,7 @@ class Puzzle
   def solve2
     if defined? answer2
       @data = nil
-      puts "  ANSWER2 (#{input_type}): #{answer2}"
+      put_answer "  ANSWER2 (#{input_type}):", answer2
     else
       puts " ANSWER2 UNDEFINED"
     end
@@ -44,10 +48,19 @@ class Puzzle
     @grid
   end
 
-  def build_grid(node_class)
-    @grid = Hash.new do |hash, key|
-      hash[key] = node_class.new(key, @grid) 
+  def build_grid(node_class = Node)
+    @grid = Grid.new do |hash, key|
+      hash[key] = node_class.new(key, hash) 
     end
   end 
+
+  def put_answer(prefix, answer)
+    if answer.respond_to?(:include?) && answer.include?("\n")
+      puts prefix
+      puts answer
+    else
+      puts "#{prefix} #{answer}"
+    end
+  end
  
 end
