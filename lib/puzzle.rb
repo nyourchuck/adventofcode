@@ -19,7 +19,7 @@ class Puzzle
   end
 
   def integers(string)
-    string.split(',').map(&:to_i)
+    string.split(/\D+/).map(&:to_i)
   end
 
   def data
