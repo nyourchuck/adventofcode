@@ -25,4 +25,9 @@ class Grid < Hash
     inspect
   end
 
+  #assuming rectangular grid
+  def bottom_right
+    @bottom_right ||= self[[max_x,max_y]]
+  end
+
 end
