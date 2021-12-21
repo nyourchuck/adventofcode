@@ -17,7 +17,7 @@ class Node
   end
 
   def at(x1, y1)
-    grid[[x + x1, y + y1]]
+    grid.at([x + x1, y + y1])
   end
 
   def new_key(new_key)

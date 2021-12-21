@@ -1,9 +1,15 @@
 class Grid < Hash
   # assumes 2d grid
   def visualize
-    (0..max_y).map { |y1|
-      (0..max_x).map { |x1| self[[x1, y1]].value || '·' }.join
+    (min_x..max_y).map { |y1|
+      (min_y..max_x).map { |x1|
+        (self[[x1, y1]] && self[[x1, y1]].value) || '·'
+      }.join
     }.join("\n") + "\n"
+  end
+
+  def at(key)
+    self[key]
   end
 
   def max_x
@@ -14,9 +20,17 @@ class Grid < Hash
     values.map(&:y).max
   end
 
+  def min_x
+    values.map(&:x).min
+  end
+
+  def min_y
+    values.map(&:y).min
+  end
+
   def inspect
     <<~EOS
-      0-#{max_x},0-#{max_y}
+      #{min_x}-#{max_x},#{min_y}-#{max_y}
       #{visualize}
     EOS
   end 
