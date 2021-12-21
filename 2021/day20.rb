@@ -16,15 +16,10 @@ class Day20 < Puzzle
     end
 
     def at(key)
-      self[key] || self[key] = Day20Node.new(key, self, default_pixel)
+      self[key] || Day20Node.new(key, self, default_pixel)
     end
 
     def enhance
-      values.each do |p|
-        if p.value == default_pixel
-          self.delete(p.key)
-        end
-      end
       pixels = values.map { |v| v.neighbors }.flatten.uniq
       pixels.each { |p|
         p.enhance(enhance_pixels[p.enhance_index])
@@ -38,25 +33,22 @@ class Day20 < Puzzle
     end
 
     def count_pixels
-      values.map { |v| v.on? ? 1 : 0 }.sum
+      values.map(&:value).sum
     end
   end
 
   class Day20Node < Node
-    attr_accessor :value, :new_value
+    attr_accessor :value, :new_value, :original
 
     def initialize(key, grid, value)
       super(key, grid)
       self.value = value
       grid[key] = self
+      self.original = original
     end
 
     def enhance_index
-      neighbors.inject(0) { |sum, i| (sum << 1) | i.bit }
-    end
-
-    def bit
-      value
+      neighbors.inject(0) { |sum, i| (sum << 1) | i.value }
     end
 
     def neighbors
@@ -82,10 +74,6 @@ class Day20 < Puzzle
     def reset
       self.value = new_value
       self.new_value = nil
-    end
-
-    def on?
-      value == 1
     end
   end
 
@@ -128,8 +116,6 @@ if __FILE__==$0
   puts "PART ONE"
   sample.solve1
   input.solve1
-
-  # guesses: 6466 (too high)
 
   puts "PART TWO"
   sample.solve2
