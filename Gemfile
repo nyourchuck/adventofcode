@@ -1,15 +1,17 @@
 # frozen_string_literal: true
 
-source 'https://rubygems.org'
+source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.2'
+ruby "2.7.2"
 
-gem 'activesupport'
-gem 'http'
-gem 'json'
-gem 'pastel'
-gem 'pry-byebug'
-gem 'rspec'
-gem 'ruby-prof'
-gem 'terminal-table'
+gem "activesupport"
+gem "http"
+gem "json"
+gem "pastel"
+gem "pry-byebug"
+gem "rspec"
+gem "rubocop"
+gem "rubocop-rspec"
+gem "ruby-prof"
+gem "terminal-table"

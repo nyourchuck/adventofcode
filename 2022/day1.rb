@@ -1,12 +1,13 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-require 'pry'
-require_relative '../lib/puzzle'
+require "pry"
+require_relative "../lib/puzzle"
 
 class Day1 < Puzzle
-
   def data
     return @data if @data
+
     @data = File.read(input_filename).split("\n\n")
     @data = @data.map do |entry|
       entry.split("\n").map(&:to_i)
@@ -23,10 +24,10 @@ class Day1 < Puzzle
   end
 
   def answer2
-    calories.slice(0,3).sum
+    calories.slice(0, 3).sum
   end
 
-  if __FILE__==$0
+  if __FILE__ == $PROGRAM_NAME
     input = Day1.new(:input)
     sample = Day1.new(:sample)
 

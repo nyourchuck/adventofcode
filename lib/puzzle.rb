@@ -1,7 +1,7 @@
+# frozen_string_literal: true
+
 class Puzzle
-  attr_accessor :data
   attr_accessor :input_type
-  attr_accessor :lines
 
   def initialize(input_type)
     self.input_type = input_type

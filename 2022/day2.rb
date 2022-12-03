@@ -1,26 +1,27 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-require 'pry'
-require_relative '../lib/puzzle'
+require "pry"
+require_relative "../lib/puzzle"
 
 class Day2 < Puzzle
   def filter
-    lines.map { |line| line.split(' ') }
+    lines.map(&:split)
   end
 
   def tools
-    @tools ||= "ABC".split('')
+    @tools ||= "ABC".chars
   end
 
   def round_score_v1(play)
     score = case play.join
-      when "AX", "BY", "CZ"
-        3
-      when "AZ", "BX", "CY"
-        0
-      when "AY", "BZ", "CX"
-        6
-      end
+            when "AX", "BY", "CZ"
+              3
+            when "AZ", "BX", "CY"
+              0
+            when "AY", "BZ", "CX"
+              6
+            end
 
     score + tool_score(play[1])
   end
@@ -64,7 +65,7 @@ class Day2 < Puzzle
     data.map { |d| round_score_v2(d) }.sum
   end
 
-  if __FILE__==$0
+  if __FILE__ == $PROGRAM_NAME
     input = new(:input)
     sample = new(:sample)
 
