@@ -81,6 +81,9 @@ Style/BlockComments:
 Style/Documentation:
   Enabled: false
 
+RSpec/MultipleExpectations:
+  Enabled: false
+
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: consistent_comma
 
