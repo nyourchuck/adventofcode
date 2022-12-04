@@ -4,6 +4,7 @@
 require "pry"
 require_relative "../lib/puzzle"
 
+##
 class Day3 < Puzzle
   def filter
     lines.map(&:chars)
