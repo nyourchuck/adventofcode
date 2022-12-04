@@ -5,14 +5,10 @@ require "pry"
 require_relative "../lib/puzzle"
 
 class Day1 < Puzzle
-  def data
-    return @data if @data
-
-    @data = File.read(input_filename).split("\n\n")
-    @data = @data.map do |entry|
+  def filter 
+    datafile.read.split("\n\n").map do |entry|
       entry.split("\n").map(&:to_i)
     end
-    @data
   end
 
   def calories
@@ -25,18 +21,5 @@ class Day1 < Puzzle
 
   def answer2
     calories.slice(0, 3).sum
-  end
-
-  if __FILE__ == $PROGRAM_NAME
-    input = Day1.new(:input)
-    sample = Day1.new(:sample)
-
-    puts "PART ONE"
-    sample.solve1
-    input.solve1
-
-    puts "PART TWO"
-    sample.solve2
-    input.solve2
   end
 end

@@ -3,18 +3,23 @@
 class Puzzle
   attr_accessor :input_type
 
-  def initialize(input_type)
+  def initialize(input_type, day = nil)
     self.input_type = input_type
+    @day = day || self.class.to_s.downcase
   end
 
   # input filenames are stored in data directory
   # example: `data/day1.sample` and `data/day1.input`
   def input_filename
-    "data/#{self.class.to_s.downcase}.#{input_type}"
+    "data/#{@day}.#{input_type}"
+  end
+
+  def datafile
+    File.open(input_filename)
   end
 
   def lines
-    @lines ||= File.open(input_filename).readlines.map(&:chomp)
+    @lines ||= datafile.readlines.map(&:chomp)
   end
 
   def integers(string)
