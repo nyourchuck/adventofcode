@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "../../2022/day1"
-
 describe Day1 do
   let(:sample) { Day1.new(:sample) }
   let(:input) { Day1.new(:input) }

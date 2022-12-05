@@ -3,15 +3,15 @@
 class Puzzle
   attr_accessor :input_type
 
-  def initialize(input_type, day = nil)
+  def initialize(input_type, data_file = nil)
     self.input_type = input_type
-    @day = day || self.class.to_s.downcase
+    @data_file = data_file || self.class.to_s.downcase
   end
 
   # input filenames are stored in data directory
-  # example: `data/day1.sample` and `data/day1.input`
+  # example: `data/2022/day1.sample` and `data/2022/day1.input`
   def input_filename
-    "data/#{@day}.#{input_type}"
+    "data/#{@data_file}.#{input_type}"
   end
 
   def datafile
@@ -22,12 +22,20 @@ class Puzzle
     @lines ||= datafile.readlines.map(&:chomp)
   end
 
+  def filter
+    lines.map { |line| filter_line(line) }
+  end
+
   def integers(string)
     string.split(/\D+/).map(&:to_i)
   end
 
   def data
     @data ||= filter
+  end
+
+  def count
+    data.count
   end
 
   def solve1

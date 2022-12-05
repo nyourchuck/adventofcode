@@ -1,10 +1,5 @@
-#!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require "pry"
-require_relative "../lib/puzzle"
-
-##
 class Day3 < Puzzle
   def filter
     lines.map(&:chars)
@@ -35,18 +30,5 @@ class Day3 < Puzzle
       priorities += priority(badge)
     end
     priorities
-  end
-
-  if __FILE__ == $PROGRAM_NAME
-    input = new(:input)
-    sample = new(:sample)
-
-    puts "PART ONE"
-    sample.solve1
-    input.solve1
-
-    puts "PART TWO"
-    sample.solve2
-    input.solve2
   end
 end

@@ -1,11 +1,9 @@
-#!/usr/bin/env ruby
 # frozen_string_literal: true
 
 require "pry"
-require_relative "../lib/puzzle"
 
 class Day1 < Puzzle
-  def filter 
+  def filter
     datafile.read.split("\n\n").map do |entry|
       entry.split("\n").map(&:to_i)
     end

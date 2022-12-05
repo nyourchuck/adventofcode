@@ -1,12 +1,8 @@
-#!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require "pry"
-require_relative "../lib/puzzle"
-
 class Day2 < Puzzle
-  def filter
-    lines.map(&:split)
+  def filter_line(line)
+    line.split
   end
 
   def tools
@@ -63,18 +59,5 @@ class Day2 < Puzzle
 
   def answer2
     data.map { |d| round_score_v2(d) }.sum
-  end
-
-  if __FILE__ == $PROGRAM_NAME
-    input = new(:input)
-    sample = new(:sample)
-
-    puts "PART ONE"
-    sample.solve1
-    input.solve1
-
-    puts "PART TWO"
-    sample.solve2
-    input.solve2
   end
 end
