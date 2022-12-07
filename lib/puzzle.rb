@@ -22,6 +22,10 @@ class Puzzle
     @lines ||= datafile.readlines.map(&:chomp)
   end
 
+  def filter_line(line)
+    line
+  end
+
   def filter
     lines.map { |line| filter_line(line) }
   end
