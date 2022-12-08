@@ -6,6 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "2.7.2"
 
 gem "activesupport"
+gem "colorize"
 gem "http"
 gem "json"
 gem "pastel"
