@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require "pry"
+require 'pry-byebug'
 
 Dir["./lib/*.rb"].sort.each { |file| require file }
 Dir["./lib/**/*.rb"].sort.each { |file| require file }
