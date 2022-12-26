@@ -16,6 +16,10 @@ class Graph
     internal[key(x,y)]
   end
 
+  def remove(key)
+    internal.delete(key)
+  end
+
   def values
     internal.values
   end
