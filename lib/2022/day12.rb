@@ -57,7 +57,7 @@ class Day12 < Puzzle
         return reconstruct_path(came_from, current)
       end
 
-      data.neighbors(current).each do |n|
+      data.neighbors.(current).dup.each do |n|
         next if !current.can_move?(n)
         new_score = g_score[current] + 1
         if new_score < g_score[n]
