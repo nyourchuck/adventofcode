@@ -2,19 +2,18 @@
 
 class Day12 < Puzzle
   class Node
-    attr_accessor :x, :y, :height, :label, :key
+    attr_accessor :point, :height, :label, :key
 
     def paths
       @paths ||= {}
     end
 
-    def initialize(x, y, label)
-      @x = x
-      @y = y
+    def initialize(point, label)
+      @point = point
       if label == 'S'
-        self.height = height = 'a'.ord
+        self.height = 'a'.ord
       elsif label == 'E'
-        self.height = height = 'z'.ord
+        self.height = 'z'.ord
       else
         self.height = label.ord
       end
@@ -27,10 +26,11 @@ class Day12 < Puzzle
   end
 
   def filter
-    Graph.new.tap do |graph|
+    Grid.new.tap do |grid|
       lines.each_with_index do |line, i|
         line.split('').each_with_index do |square, j|
-          graph.add(i,j, Node.new(i, j, square))
+          p = Point.new(i,j)
+          grid.add(p, Node.new(p, square))
         end
       end
     end
@@ -57,7 +57,7 @@ class Day12 < Puzzle
         return reconstruct_path(came_from, current)
       end
 
-      data.neighbors(current.x, current.y).each do |n|
+      data.neighbors(current).each do |n|
         next if !current.can_move?(n)
         new_score = g_score[current] + 1
         if new_score < g_score[n]
@@ -73,11 +73,11 @@ class Day12 < Puzzle
   end
 
   def start
-    @start ||= data.internal.values.find { |n| n.label == 'S' }
+    @start ||= data.values.find { |n| n.label == 'S' }
   end
 
   def goal
-    @goal ||= data.internal.values.find { |n| n.label == 'E' }
+    @goal ||= data.values.find { |n| n.label == 'E' }
   end
 
   def answer1
@@ -87,6 +87,10 @@ class Day12 < Puzzle
   def answer2
     data.values.select { |n|
       n.height == start.height
+    }.select { |n|
+      # only select nodes which can increase height by 1 on 1st step
+      # paths starting with 'aa' are never the shortest
+      data.neighbors(n).map(&:height).include?('b'.ord) 
     }.map { |choice|
       build_path(choice, goal).length - 1
     }.sort.find { |n| n > 0 }

@@ -7,18 +7,18 @@ describe Day14 do
   let(:input) { Day14.new(:input) }
 
   it "calculates sample answer 1" do
-    expect(sample.answer1).to eq 31
+    expect(sample.answer1).to eq 24
   end
 
   it "calculates sample answer 2" do
-    expect(sample.answer2).to eq 29
+    expect(sample.answer2).to eq 93
   end
 
   it "calculates input answer 1" do
-    expect(input.answer1).to eq 528
+    expect(input.answer1).to eq 755
   end
 
   it "calculates input answer 2" do
-    expect(input.answer2).to eq 522
+    expect(input.answer2).to eq 29805
   end
 end

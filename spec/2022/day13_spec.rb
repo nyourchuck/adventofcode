@@ -71,6 +71,6 @@ describe Day13 do
   end
 
   it "calculates input answer 2" do
-    expect(input.answer2).to eq 522
+    expect(input.answer2).to eq 21276
   end
 end

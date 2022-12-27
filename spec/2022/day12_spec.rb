@@ -18,7 +18,7 @@ describe Day12 do
     expect(input.answer1).to eq 528
   end
 
-  it "calculates input answer 2" do
+  it "calculates input answer 2", :speed => 'slow' do
     expect(input.answer2).to eq 522
   end
 end
