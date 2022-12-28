@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Day11 < Puzzle
-  MONKEYS = []
+  MONKEYS = [].freeze
 
   class Monkey
     attr_accessor :items, :inspections, :test, :worry, :op
@@ -37,9 +37,9 @@ class Day11 < Puzzle
     monkeys = []
     groups = File.read(input_filename).split("\n\n")
     groups.each do |data|
-      (id, items, op, test, m1, m2) = data.split("\n").map {|i| i.gsub(/.*\:/,'') }
+      (_id, items, op, test, m1, m2) = data.split("\n").map { |i| i.gsub(/.*:/, "") }
       monkey = Monkey.new(
-        items.split(':').last.split(',').map(&:to_i),
+        items.split(":").last.split(",").map(&:to_i),
         op,
         test.split.last.to_i,
         m1.split.last.to_i,
@@ -64,7 +64,7 @@ class Day11 < Puzzle
         monkey.process(monkeys)
       end
     end
-    monkeys.map(&:inspections).sort.reverse.slice(0,2).inject(:*)
+    monkeys.map(&:inspections).sort.reverse.slice(0, 2).inject(:*)
   end
 
   def answer1

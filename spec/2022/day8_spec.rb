@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 
 describe Day8 do
@@ -17,7 +16,7 @@ describe Day8 do
     expect(input.answer1).to eq 1794
   end
 
-  it "calculates input answer 2", :speed => 'slow' do
-    expect(input.answer2).to eq 199272
+  it "calculates input answer 2", speed: "slow" do
+    expect(input.answer2).to eq 199_272
   end
 end

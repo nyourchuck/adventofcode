@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require 'colorize'
+
+require "colorize"
 
 class Day8 < Puzzle
   SOUTH = 1
@@ -16,21 +17,22 @@ class Day8 < Puzzle
     end
 
     def neighbors
-      @neighbors ||= Hash.new
+      @neighbors ||= {}
     end
 
     def visible?(direction = nil)
       if direction
         all_neighbors(direction).all? { |other| other.h < h }
       else
-        [SOUTH, NORTH, EAST, WEST].map { |d| visible?(d) }.any? 
+        [SOUTH, NORTH, EAST, WEST].map { |d| visible?(d) }.any?
       end
     end
 
     def all_neighbors(direction)
       neighbor = neighbors[direction]
       return [] if neighbor.nil?
-      [ neighbor ].concat neighbor.all_neighbors(direction)
+
+      [neighbor].concat neighbor.all_neighbors(direction)
     end
 
     def add_neighbor(direction, tree)
@@ -41,14 +43,14 @@ class Day8 < Puzzle
     end
 
     def score
-      [SOUTH, NORTH, EAST, WEST].map { |direction|
+      [SOUTH, NORTH, EAST, WEST].map do |direction|
         view = []
         all_neighbors(direction).each do |n|
           view.push n
           break if n.h >= h
         end
         view.length
-      }.inject(:*)
+      end.inject(:*)
     end
 
     def to_s
@@ -66,15 +68,15 @@ class Day8 < Puzzle
   end
 
   def filter
-    forest = Hash.new
+    forest = {}
     lines.each_with_index do |line, i|
-      line.split('').each_with_index do |height, j|
-        tree = Tree.new(height.to_i, [i,j])
-        forest[[i,j]] = tree
-        tree.add_neighbor(WEST, forest[[i,j-1]])
-        tree.add_neighbor(NORTH, forest[[i-1,j]])
+      line.chars.each_with_index do |height, j|
+        tree = Tree.new(height.to_i, [i, j])
+        forest[[i, j]] = tree
+        tree.add_neighbor(WEST, forest[[i, j - 1]])
+        tree.add_neighbor(NORTH, forest[[i - 1, j]])
       end
-    end 
+    end
     forest
   end
 

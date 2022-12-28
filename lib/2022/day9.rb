@@ -5,21 +5,14 @@ class Day9 < Puzzle
     lines.map(&:split)
   end
 
-  class Point
-    attr_accessor :x, :y
-   
-    def initialize(x,y)
-      @x = x
-      @y = y
-    end
-    
-    def move(x,y)
+  class Knot < Point
+    def move(x, y)
       @x += x
       @y += y
     end
 
     def key
-      [@x,@y].to_s
+      [@x, @y].to_s
     end
 
     def catchup(other)
@@ -29,7 +22,7 @@ class Day9 < Puzzle
       end
     end
 
-    def closer(a,b)
+    def closer(a, b)
       case a - b
       when -1, -2
         a + 1
@@ -42,36 +35,33 @@ class Day9 < Puzzle
   end
 
   def simulate(knot_count)
-
-    knots = (0...12).to_a.map { Point.new(0,0) }
-    knots = knots.slice(0,knot_count +1)
+    knots = (0..knot_count).to_a.map { Knot.new(0, 0) }
     head = knots[0]
-    points = {}
+    move_head(head, knots)
+  end
 
-    data.each do |a,b|
-      b.to_i.times do 
+  def move_head(head, knots)
+    points = {}
+    data.each do |a, b|
+      b.to_i.times do
         case a
         when "R"
-          head.move(1,0)
+          head.move(1, 0)
         when "U"
-          head.move(0,1)
+          head.move(0, 1)
         when "L"
-          head.move(-1,0)
+          head.move(-1, 0)
         when "D"
-          head.move(0,-1)
+          head.move(0, -1)
         else
           puts "OOPS"
         end
-        (1..knot_count).each do |i|
-          knots[i].catchup(knots[i-1])
-        end  
-        points[knots[knot_count].key] = true
+        (1...knots.length).each do |i|
+          knots[i].catchup(knots[i - 1])
+        end
+        points[knots[knots.length-1].key] = true
       end
     end
-    if points.keys.count < 20
-      puts points.keys.join(':')
-    end
-    puts knots.count
     points.keys.count
   end
 

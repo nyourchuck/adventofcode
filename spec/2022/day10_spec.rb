@@ -5,7 +5,7 @@ describe Day10 do
   let(:input) { Day10.new(:input) }
 
   it "calculates sample answer 1" do
-    expect(sample.answer1).to eq 13140
+    expect(sample.answer1).to eq 13_140
   end
 
   it "calculates sample answer 2" do
@@ -20,7 +20,7 @@ describe Day10 do
   end
 
   it "calculates input answer 1" do
-    expect(input.answer1).to eq 12560
+    expect(input.answer1).to eq 12_560
   end
 
   it "calculates input answer 2" do

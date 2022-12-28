@@ -2,7 +2,7 @@
 
 class Day6 < Puzzle
   def filter
-    lines.first.split('')
+    lines.first.chars
   end
 
   def answer1(size: 4)
@@ -11,7 +11,8 @@ class Day6 < Puzzle
       if data.slice(index, size).uniq.length == size
         return index + size
       end
-      index = index + 1
+
+      index += 1
     end
   end
 

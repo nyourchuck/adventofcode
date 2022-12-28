@@ -1,5 +1,6 @@
-class Graph
+# frozen_string_literal: true
 
+class Graph
   def initialze
   end
 
@@ -7,13 +8,13 @@ class Graph
     @internal ||= {}
   end
 
-  def add(x,y, node)
-    node.key = key(x,y)
+  def add(x, y, node)
+    node.key = key(x, y)
     internal[node.key] = node
   end
 
-  def get(x,y)
-    internal[key(x,y)]
+  def get(x, y)
+    internal[key(x, y)]
   end
 
   def remove(key)
@@ -24,17 +25,16 @@ class Graph
     internal.values
   end
 
-  def key(x,y)
+  def key(x, y)
     "#{x}:#{y}"
   end
 
-  def neighbors(x,y)
+  def neighbors(x, y)
     [
-      get(x-1,y),
-      get(x,y-1),
-      get(x,y+1),
-      get(x+1,y),
+      get(x - 1, y),
+      get(x, y - 1),
+      get(x, y + 1),
+      get(x + 1, y)
     ].compact
   end
-
 end

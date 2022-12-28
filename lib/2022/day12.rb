@@ -10,14 +10,19 @@ class Day12 < Puzzle
 
     def initialize(point, label)
       @point = point
-      if label == 'S'
-        self.height = 'a'.ord
-      elsif label == 'E'
-        self.height = 'z'.ord
-      else
-        self.height = label.ord
-      end
+      self.height = calculate_height(label)
       self.label = label
+    end
+
+    def calculate_height(label)
+      case label
+      when "S"
+        "a".ord
+      when "E"
+        "z".ord
+      else
+        label.ord
+      end
     end
 
     def can_move?(neighbor)
@@ -28,8 +33,8 @@ class Day12 < Puzzle
   def filter
     Grid.new.tap do |grid|
       lines.each_with_index do |line, i|
-        line.split('').each_with_index do |square, j|
-          p = Point.new(i,j)
+        line.chars.each_with_index do |square, j|
+          p = Point.new(i, j)
           grid.add(p, Node.new(p, square))
         end
       end
@@ -57,42 +62,54 @@ class Day12 < Puzzle
         return reconstruct_path(came_from, current)
       end
 
-      data.neighbors.(current).dup.each do |n|
-        next if !current.can_move?(n)
+      data.neighbors(current).each do |n|
+        next if current.label == "a" && n.label == "a"
+
         new_score = g_score[current] + 1
-        if new_score < g_score[n]
-          came_from[n] = current
-          g_score[n] = new_score
-          if !open_set.include?(n)
-            open_set.push(n)
-          end
+        next unless new_score < g_score[n]
+
+        came_from[n] = current
+        g_score[n] = new_score
+        if !open_set.include?(n)
+          open_set.push(n)
         end
       end
     end
-    return []
+    []
   end
 
   def start
-    @start ||= data.values.find { |n| n.label == 'S' }
+    @start ||= data.values.find { |n| n.label == "S" }
   end
 
   def goal
-    @goal ||= data.values.find { |n| n.label == 'E' }
+    @goal ||= data.values.find { |n| n.label == "E" }
   end
 
   def answer1
+    data.values.each do |n|
+      data.neighbors(n).select! do |other|
+        n.can_move?(other)
+      end
+    end
     build_path(start, goal).length - 1
   end
 
   def answer2
-    data.values.select { |n|
+    start_nodes = data.values.select do |n|
+      data.neighbors(n).select! do |other|
+        n.can_move?(other)
+      end
       n.height == start.height
-    }.select { |n|
+    end
+    start_nodes.select! do |n|
       # only select nodes which can increase height by 1 on 1st step
       # paths starting with 'aa' are never the shortest
-      data.neighbors(n).map(&:height).include?('b'.ord) 
-    }.map { |choice|
+      data.neighbors(n).map(&:height).include?("b".ord)
+    end
+    path_lengths = start_nodes.map do |choice|
       build_path(choice, goal).length - 1
-    }.sort.find { |n| n > 0 }
+    end
+    path_lengths.sort.find { |n| n > 0 }
   end
 end

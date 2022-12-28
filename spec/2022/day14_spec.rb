@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'pry-byebug'
+require "pry-byebug"
 
 describe Day14 do
   let(:sample) { Day14.new(:sample) }
@@ -19,6 +19,6 @@ describe Day14 do
   end
 
   it "calculates input answer 2" do
-    expect(input.answer2).to eq 29805
+    expect(input.answer2).to eq 29_805
   end
 end
